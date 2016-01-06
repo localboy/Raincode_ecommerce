@@ -1,0 +1,17 @@
+.org_price{
+    color:red;
+    text-decoration:line-through
+}
+.navbar {
+     border-radius: 0px !important;
+}
+.navbar-inverse {
+    background-color: #02FBEF;
+    border-color: #9A9898;
+}
+.navbar-inverse .navbar-brand {
+    color: #332B2B;
+}
+.navbar-inverse .navbar-brand:hover {
+    color: #332B2B;
+}

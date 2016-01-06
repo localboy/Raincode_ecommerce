@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block test %}
+    <div class="container">
+    <h3>{{ object }}</h3>
+    <div class="row">
+        {% for product in products %}
+            <div class="col-xs-4">
+                    {% include "products/product_thumbnail.html" with product=product %}
+                </div>
+                {% cycle '' '' '</div><div class="row">' %}
+    {#        <tr>#}
+    {#            <td><a href="/products/{{ object.pk }}">{{ object.title }}</a> </td>#}
+    {#        </tr>#}
+        {% endfor %}
+      </div>
+{#    <table class="table table-bordered">#}
+{#    {% for product in products %}#}
+{#        <tr>#}
+{#            <td><a href="/products/{{ product.pk }}">{{ product.title }}</a> </td>#}
+{#        </tr>#}
+{#    {% endfor %}#}
+{#    </table>#}
+    </div>
+{% endblock %}

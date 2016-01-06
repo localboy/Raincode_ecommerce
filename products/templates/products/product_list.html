@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block test %}
+    <div class="container">
+    <h1>All products<small></h1>
+        <div class="row">
+        {% for product in object_list %}
+            <div class="col-xs-4">
+                    {% include "products/product_thumbnail.html" with product=product price="True" %}
+                </div>
+                {% cycle '' '' '</div><div class="row">' %}
+    {#        <tr>#}
+    {#            <td><a href="/products/{{ object.pk }}">{{ object.title }}</a> </td>#}
+    {#        </tr>#}
+        {% endfor %}
+      </div>
+    </div>
+{% endblock %}

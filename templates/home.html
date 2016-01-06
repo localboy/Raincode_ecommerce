@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block test %}
+<h1>{{ template_title }}</h1>
+    <form method="post" action="">{% csrf_token %}
+          {{ form.as_p }}
+    <input type="submit" value="Submit">
+    </form>
+
+{% endblock %}

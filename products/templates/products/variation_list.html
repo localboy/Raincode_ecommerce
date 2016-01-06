@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block test %}
+    <div class="container">
+    <table class="table table-bordered">
+        <tr><td>No</td><td>Title</td><td>Price</td><td>Inventory</td></tr>
+    {% for object in object_list %}
+        <tr>
+            <td><a href="/products/{{ object.pk }}">view</a> </td>
+{#            <td><a href="{% url 'product_detail' pk=object.pk %}">View</a> </td>#}
+{#            <td><a href="{{ object.get_absolute_url }}">View</a> </td>#}
+            <td>{{ object.title }}</td>
+            <td>{{ object.price }}</td>
+            <td>{{ object.inventory }}</td>
+        </tr>
+    {% endfor %}
+    </table>
+    <form method="post" action="">{% csrf_token %}
+        {{ formset.management_form }}
+        {% for form in formset %}
+            {{ form.instance.product.title }}
+            {{ form.instance.title }}
+           {{ form.as_p }}
+        {% endfor %}
+
+        <input class="btn" type="submit" value="Update"/>
+    </form>
+    </div>
+{% endblock %}

@@ -1,0 +1,88 @@
+{% extends "base.html" %}
+<script>
+{% block jquery %}
+    function setPrice(){
+        var price = $(".variation_select option:selected").attr("data-price")
+        var sale_price = $(".variation_select option:selected").attr("data-sale-price")
+        if(sale_price !='' && sale_price!='None' && sale_price!=null){
+             $("#price").html("<h3>" + sale_price + " <small class='org_price'>" + price+"</small></h3>")
+        }else {
+             $("#price").html(price)
+        }
+
+    }
+    setPrice()
+    var price = $(".variation_select option:selected").attr("data-price")
+    $(".variation_select").change(function(){
+        setPrice()
+{#    var sale_price = $(".variation_select option:selected").attr("data-sale-price")#}
+{#        alert(sale_price)#}
+    })
+{% endblock %}
+</script>
+{% load staticfiles %}
+{% block test %}
+<div class="container">
+    <div class="row">
+        <div class="col-sm-8">
+            <h2>{{ object.title }}</h2>
+            {% if object.get_image_url %}
+            <div>
+
+{#                    {{ img.image.file }}<br/>#}
+{#                    {{ img.image.url }}#}
+                    <img class='img-responsive' src={{ object.get_image_url }}/>
+{#                    <img src="{% media 'products/mp3.jpg' %}">#}
+
+            </div>
+            {% endif %}
+            <p class="lead">{{ object.description }}</p>
+        </div>
+        <!--Product sidebar--->
+        <div class="col-sm-4">
+            {% if object.variation_set.count > 1 %}
+            <h3 id="price">{{ object.variation_set.first.price }}</h3>
+            <select class="form-control variation_select">
+                {% for vari_obj in object.variation_set.all %}
+                    <option data-sale-price="{{ vari_obj.sale_price }}" data-price="{{ vari_obj.price }}" value="{{ vari_obj.id }}"> {{ vari_obj }}</option>
+                {% endfor %}
+            </select>
+                {% else %}
+                <h3 id="price">
+                {% if object.variation_set.first.sale_price %}
+                    {{ object.variation_set.first.sale_price }}
+                    <small class='org_price'>{{ object.variation_set.first.price }}</small>
+                {% else %}
+                    {{ object.variation_set.first.price }}
+                {% endif %}
+                </h3>
+            {% endif %}
+            <br>
+            <a href="#">Add to Cart</a>
+        <br>
+        <hr/>
+        <p>
+            Share<br>
+            <a href="#">
+                <i class="fa fa-facebook-square fa-3x"></i>
+            </a>
+            <a href="#">
+                <i class="fa fa-twitter-square fa-3x"></i>
+            </a>
+        </p>
+        <hr/>
+        <h4>Related Products</h4>
+        <div class="row">
+        {% for product in related %}
+            <div class="col-xs-6">
+                {% include "products/product_thumbnail.html" with product=product %}
+            </div>
+            {% cycle '' '</div><div class="row">' %}
+{#            <a href="/products/{{ product.pk }}">{{ product.title }}</a><br/>#}
+        {% endfor %}
+        </div>
+        </div>
+        <!--End Product sidebar--->
+    </div>
+</div>
+{% endblock %}
