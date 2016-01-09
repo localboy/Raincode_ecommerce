@@ -27,18 +27,29 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+EMAIL_USE_TLS = True
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_PASSWORD = '01731736326' #my gmail password
+EMAIL_HOST_USER = 'jakir1124' #my gmail username
+EMAIL_PORT = 587
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
 # Application definition
 
 INSTALLED_APPS = (
     'django.contrib.admin',
     'django.contrib.auth',
+    'django.contrib.sites',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'crispy_forms',
+    'registration',
     'newsletter',
     'products',
+    'carts',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -113,6 +124,12 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'static', 'media')
 
 MEDIA_URL = '/media/'
 
+#Crispy Form Tag
+CRISPY_TEMPLATE_PACK = 'bootstrap3'
 
+#Django Registration Redux
+ACCOUNT_ACTIVATION_DAYS = 7 # One-week activation window; you may, of course, use a different value.
+REGISTRATION_AUTO_LOGIN = True # Automatically log the user in.
 
-
+SITE_ID = 1
+LOGIN_REDIRECT_URL = '/'

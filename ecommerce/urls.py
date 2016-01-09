@@ -5,11 +5,13 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     # Examples:
-    url(r'^$', 'ecommerce.views.home', name='home'),
+    url(r'^$', 'newsletter.views.home', name='home'),
+    # url(r'^$', 'ecommerce.views.home', name='home'),
     # url(r'^blog/', include('blog.urls')),
 
     url(r'^admin/', include(admin.site.urls)),
     # url(r'^products/', include('products.urls')),
     url(r'^products/', include('products.urls', namespace="products")),
     url(r'^categories/', include('products.urls_categories', namespace="categories")),
+    url(r'^accounts/', include('registration.backends.default.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

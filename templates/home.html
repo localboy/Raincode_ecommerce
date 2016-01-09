@@ -1,10 +1,68 @@
 {% extends 'base.html' %}
 {% load staticfiles %}
-{% block test %}
-<h1>{{ template_title }}</h1>
-    <form method="post" action="">{% csrf_token %}
-          {{ form.as_p }}
-    <input type="submit" value="Submit">
-    </form>
 
+
+{% block style %}
+<style>
+    .navbar{
+    margin-bottom: 0px !important;
+    }
+    .jumbotron{
+        background-color: #02FBEF;
+        color: #000000;
+    {% if featured_image.make_image_background %}
+        background-image: url("{{ featured_image.image.url }}");
+        background-repeat: no-repeat;
+        background-color: #000000;
+        background-size: cover;
+        background-position-y: -200px;
+    {% endif %}
+    }
+</style>
+{% endblock %}
+
+
+{% block jumbotron %}
+    {% if featured_image %}
+        <div class="jumbotron">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <h1>{{ featured_image.product.title }}</h1>
+                        <p>{{ featured_image.product.description }}</p>
+                        <p>
+                            <button class="btn btn-primary" href="/products/{{ featured_image.product.pk }}" role="button">More details</button>
+                        </p>
+                    </div>
+                    <div class="col-sm-6">
+                        {% if not featured_image.make_image_background %}
+                        <img src="{{ featured_image.image.url }}" class="img-responsive"/>
+                            {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% else %}
+        <div class="jumbotron">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-6"></div>
+                    <div class="col-sm-6"></div>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+    <div class="row">
+        <h3>Recomended Products</h3>
+    {% include "products/product.html" with object_list=products col_class_set="col-sm-2" %}
+    </div>
+    <div class="row">
+        <h3>Featured Products</h3>
+        {% include "products/product.html" with object_list=products2  %}
+    </div>
+</div>
 {% endblock %}

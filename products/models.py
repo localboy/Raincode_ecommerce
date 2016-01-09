@@ -111,7 +111,7 @@ def image_upload_to_featured(instance, filename):
     slug = slugify(title)
     basename, file_extentsion = filename.split(".")
     new_filename = "%s-%s.%s" %(slug, instance.id, file_extentsion)
-    return "products/%s/%s" %(slug, new_filename)
+    return "products/%s/featured/%s" %(slug, new_filename)
 
 
 class ProductFeatured(models.Model):
@@ -121,6 +121,7 @@ class ProductFeatured(models.Model):
     text = models.CharField(max_length=120, blank=True, null=True)
     text_right = models.BooleanField(default=False)
     show_price = models.BooleanField(default=False)
+    make_image_background = models.BooleanField(default=False)
     active = models.BooleanField(default=True)
 
 
