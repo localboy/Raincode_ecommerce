@@ -3,9 +3,11 @@ from django.conf.urls import include, url
 from django.contrib import admin
 from django.conf.urls.static import static
 
+from newsletter.views import home
+
 urlpatterns = [
     # Examples:
-    url(r'^$', 'newsletter.views.home', name='home'),
+    url(r'^$', home, name='home'),
     # url(r'^$', 'ecommerce.views.home', name='home'),
     # url(r'^blog/', include('blog.urls')),
 
